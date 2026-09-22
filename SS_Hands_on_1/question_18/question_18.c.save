@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+struct Record{
+int id;
+int value;
+};
+
+int main(){
+int fd = open("records_db.dat", O_RDWR|O_CREAT, 0644);
+if (fd == -1){
+perror("error openong database file");
+return 1;
+}
+
+off_t file_size = lseek(fd,0,SEEK_END);
+if(file_size == 0){
+struct Record init_records[3] = {{1,100},{2,200},{3,300}};
+write(fd, init_records, sizeof(init_records));
+printf("databse initialized with 3 records \n\n");
+}
+
+int rec_num, choice;
+printf("Record Locking System");
+printf("select record to access (1,2,3)");
+scanf("%d", &rec_num);
+
+if(rec_num<1 || rec_num>3){
+printf("invalid number");
+close(fd);
+return 1;
+}
+
+printf("1.Read Record (Shared Lock); 2. Modify record(write/exc lock)\n");
+printf("enter choice\n");
+scanf("%d", &choice);
+
+struct flock lock;
+lock.l_whence = SEEK_SET;
+
+lock.l_start = (rec_num -1) * sizeof(struct Record);
+lock.l_len = sizeof(struct Record);
+lock.l_pid = getpid();
+
+if(choice == 1){
+lock.l_type = F_RDLCK;
+printf("waiting to acquire read lock on record %d\n", rec_num);
+fcntl(fd, F_SETLKW, &lock);
+printf("READ lock acquired \n");
+
+struct Record rec;
+lseek(fd, lock.l_start, SEEK_SET);
+read()
+}
+
+}

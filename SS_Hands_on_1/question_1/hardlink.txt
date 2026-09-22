@@ -1,0 +1,5 @@
+#create sofft link-> pointer to file-> ln -s file.txt softlink.txt
+#create hardlink -> pointer to data-> ln file.txt hardlink.txt
+#create FIFO -> mkfifo my_fifo
+
+

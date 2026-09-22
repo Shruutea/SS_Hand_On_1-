@@ -1,0 +1,4 @@
+1. written by original fd
+2. written by dup() fd
+3. written by dup2() fd
+4. written by fcnlt() fd
