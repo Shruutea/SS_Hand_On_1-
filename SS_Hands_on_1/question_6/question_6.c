@@ -1,7 +1,7 @@
 /* Program Number: 6
 Student Name: Shruti Sijariya; Register Number: MT2026127
 Date: 22-09-2026
-Description: Craft a program to take input from STDIN and display it on STDOUT using only read/write system calls[cite: 3].
+Description: Craft a program to take input from STDIN and display it on STDOUT using only read/write system calls.
 */
 
 #include <stdio.h>
